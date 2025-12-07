@@ -1,0 +1,20 @@
+{
+  "name": "so-final-ci-cd",
+  "version": "1.0.0",
+  "description": "Proyecto final CI/CD multi-plataforma",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "echo \"No hay linter configurado todavía\""
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
+  }
+}

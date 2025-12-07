@@ -1,0 +1,5 @@
+[2025-12-07T07:11:04.102Z] Request GET / from ::ffff:127.0.0.1
+[2025-12-07T07:11:04.125Z] Request GET /fs-test from ::ffff:127.0.0.1
+[2025-12-07T07:11:04.126Z] Archivo temporal creado: D:\Users\Andres\Sistemas operativos\so-final-ci-cd\logs\fs-test-1765091464126.txt
+[2025-12-07T07:11:04.134Z] Request GET / from ::ffff:127.0.0.1
+[2025-12-07T07:11:04.142Z] Request GET /logs from ::ffff:127.0.0.1

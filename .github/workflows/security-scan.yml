@@ -1,0 +1,60 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: "0 3 * * *" # todos los días a las 03:00 UTC
+  workflow_dispatch:
+
+jobs:
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: npm audit (generate JSON report)
+        run: |
+          npm audit --json > npm-audit-report.json || true
+      # puedes usar npm audit action del Marketplace si quieres algo más completo :contentReference[oaicite:1]{index=1}
+
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report
+          path: npm-audit-report.json
+
+  permissions-check:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: List file permissions (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          echo "Permisos del directorio logs:"
+          ls -l logs || echo "No existe logs"
+          echo "Permisos del proyecto:"
+          ls -l
+
+      - name: List file ACLs (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          echo "Permisos de logs (si existe):"
+          if (Test-Path "logs") { icacls logs }
+          echo "Permisos de los archivos principales:"
+          icacls package.json
