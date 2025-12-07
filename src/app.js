@@ -2,7 +2,7 @@ const express = require('express');
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
-const { log, getLogFilePath } = require('./logger');
+const { log, getLogFilePath, getLogDir } = require('./logger');
 
 const app = express();
 
@@ -22,7 +22,8 @@ app.get('/', (req, res) => {
     hostname: os.hostname(),
     nodeVersion: process.version,
     nodeEnv: NODE_ENV,
-    version: VERSION
+    version: VERSION,
+    message: 'Servicio en linea'
   };
 
   res.json(info);
@@ -31,12 +32,17 @@ app.get('/', (req, res) => {
 app.get('/logs', (req, res) => {
   const logPath = getLogFilePath();
 
+  if (!logPath) {
+    return res.status(200).json({ message: 'Logging is not available in this environment' });
+  }
+
   if (!fs.existsSync(logPath)) {
-    return res.status(200).json({ message: 'No hay logs todavía' });
+    return res.status(200).json({ message: 'No hay logs todavia' });
   }
 
   const content = fs.readFileSync(logPath, 'utf8');
-  const lines = content.trim().split('\n');
+  const trimmed = content.trim();
+  const lines = trimmed ? trimmed.split('\n') : [];
   const lastLines = lines.slice(-20);
 
   res.json({
@@ -46,11 +52,24 @@ app.get('/logs', (req, res) => {
 });
 
 app.get('/fs-test', (req, res) => {
-  const tmpDir = path.join(__dirname, '..', 'logs');
+  const tmpDir = getLogDir();
+
+  if (!tmpDir) {
+    return res.status(500).json({ message: 'No writable directory available for temp files' });
+  }
+
   const tmpFile = path.join(tmpDir, `fs-test-${Date.now()}.txt`);
 
-  fs.writeFileSync(tmpFile, `Archivo creado a las ${new Date().toISOString()}`);
-  log(`Archivo temporal creado: ${tmpFile}`);
+  try {
+    fs.writeFileSync(tmpFile, `Archivo creado a las ${new Date().toISOString()}`);
+    log(`Archivo temporal creado: ${tmpFile}`);
+  } catch (err) {
+    return res.status(500).json({
+      message: 'Could not create temp file',
+      error: err.message,
+      dir: tmpDir
+    });
+  }
 
   res.json({
     message: 'Archivo temporal creado',
