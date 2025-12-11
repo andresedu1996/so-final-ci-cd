@@ -19,3 +19,15 @@
 [2025-12-07T07:49:04.336Z] Archivo temporal creado: D:\Users\Andres\Sistemas operativos\so-final-ci-cd\logs\fs-test-1765093744335.txt
 [2025-12-07T07:49:04.353Z] Request GET /status from ::ffff:127.0.0.1
 [2025-12-07T07:49:04.378Z] Request GET /logs from ::ffff:127.0.0.1
+[2025-12-11T18:26:34.690Z] Request GET /status from ::ffff:127.0.0.1
+[2025-12-11T18:26:34.709Z] Request GET / from ::ffff:127.0.0.1
+[2025-12-11T18:26:34.716Z] Request GET /fs-test from ::ffff:127.0.0.1
+[2025-12-11T18:26:34.717Z] Archivo temporal creado: D:\Users\Andres\Sistemas operativos\so-final-ci-cd\logs\fs-test-1765477594717.txt
+[2025-12-11T18:26:34.725Z] Request GET /status from ::ffff:127.0.0.1
+[2025-12-11T18:26:34.733Z] Request GET /logs from ::ffff:127.0.0.1
+[2025-12-11T18:29:14.366Z] Request GET /status from ::ffff:127.0.0.1
+[2025-12-11T18:29:14.385Z] Request GET / from ::ffff:127.0.0.1
+[2025-12-11T18:29:14.392Z] Request GET /fs-test from ::ffff:127.0.0.1
+[2025-12-11T18:29:14.395Z] Archivo temporal creado: D:\Users\Andres\Sistemas operativos\so-final-ci-cd\logs\fs-test-1765477754393.txt
+[2025-12-11T18:29:14.406Z] Request GET /status from ::ffff:127.0.0.1
+[2025-12-11T18:29:14.413Z] Request GET /logs from ::ffff:127.0.0.1
